@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PLZ Suche</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+    }
+    label {
+      font-weight: bold;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      margin: 10px 0;
+    }
+    button {
+      padding: 10px 15px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .results {
+      margin-top: 20px;
+    }
+    .result-item {
+      padding: 10px;
+      border: 1px solid #ddd;
+      margin-bottom: 10px;
+    }
+    .tabs {
+      margin-top: 30px;
+    }
+    .tab-list {
+      display: flex;
+      cursor: pointer;
+      border-bottom: 2px solid #ddd;
+    }
+    .tab-list div {
+      padding: 10px 20px;
+      border: 1px solid #ddd;
+      border-bottom: none;
+      background-color: #f1f1f1;
+      margin-right: 5px;
+    }
+    .tab-list div.active {
+      background-color: white;
+      border-top: 2px solid #007bff;
+      border-left: 2px solid #007bff;
+      border-right: 2px solid #007bff;
+      border-bottom: 1px solid white;
+    }
+    .tab-content {
+      border: 1px solid #ddd;
+      padding: 15px;
+      background-color: white;
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    pre {
+      background-color: #f4f4f4;
+      padding: 10px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+  <h1>PLZ oder Stadt Suche</h1>
+  <label for="search">PLZ oder Stadt:</label>
+  <input type="text" id="search" placeholder="z.B. 1067 oder Dresden" />
+
+  <div class="results" id="results"></div>
+
+  <!-- Tabs for API Usage Examples -->
+  <div class="tabs">
+    <div class="tab-list">
+      <div class="tab-item active" data-tab="javascript">JavaScript</div>
+      <div class="tab-item" data-tab="typescript">TypeScript</div>
+      <div class="tab-item" data-tab="csharp">C#</div>
+      <div class="tab-item" data-tab="java">Java</div>
+      <div class="tab-item" data-tab="python">Python</div>
+      <div class="tab-item" data-tab="php">PHP</div>
+    </div>
+    <div id="javascript" class="tab-content active">
+      <h2>JavaScript Beispiel</h2>
+      <pre><code>
+// JavaScript Beispiel für eine API-Abfrage
+fetch('/api/search?plz=1067')
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.error('Fehler:', error));
+      </code></pre>
+    </div>
+    <div id="typescript" class="tab-content">
+      <h2>TypeScript Beispiel</h2>
+      <pre><code>
+// TypeScript Beispiel für eine API-Abfrage
+async function fetchData() {
+  try {
+    const response = await fetch('/api/search?plz=1067');
+    const data: any = await response.json();
+    console.log(data);
+  } catch (error) {
+    console.error('Fehler:', error);
+  }
+}
+fetchData();
+      </code></pre>
+    </div>
+    <div id="csharp" class="tab-content">
+      <h2>C# Beispiel</h2>
+      <pre><code>
+// C# Beispiel für eine API-Abfrage
+using System;
+using System.Net.Http;
+using System.Threading.Tasks;
+
+class Program {
+  static async Task Main() {
+    using var client = new HttpClient();
+    var response = await client.GetStringAsync("http://localhost:3000/api/search?plz=1067");
+    Console.WriteLine(response);
+  }
+}
+      </code></pre>
+    </div>
+    <div id="java" class="tab-content">
+      <h2>Java Beispiel</h2>
+      <pre><code>
+// Java Beispiel für eine API-Abfrage
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.Scanner;
+
+public class ApiExample {
+  public static void main(String[] args) throws IOException {
+    URL url = new URL("http://localhost:3000/api/search?plz=1067");
+    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+    conn.setRequestMethod("GET");
+
+    Scanner sc = new Scanner(url.openStream());
+    while (sc.hasNext()) {
+      System.out.println(sc.nextLine());
+    }
+    sc.close();
+  }
+}
+      </code></pre>
+    </div>
+    <div id="python" class="tab-content">
+      <h2>Python Beispiel</h2>
+      <pre><code># Python Beispiel für eine API-Abfrage
+import requests
+
+response = requests.get("http://localhost:3000/api/search?plz=1067")
+print(response.json())
+      </code></pre>
+    </div>
+    <div id="php" class="tab-content">
+      <h2>PHP Beispiel</h2>
+      <pre><code>
+// PHP Beispiel für eine API-Abfrage
+$ch = curl_init();
+
+curl_setopt($ch, CURLOPT_URL, "http://localhost:3000/api/search?plz=1067");
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+$output = curl_exec($ch);
+curl_close($ch);
+
+echo $output;
+      </code></pre>
+    </div>
+  </div>
+
+  <script>
+    document.querySelectorAll('.tab-item').forEach(tab => {
+      tab.addEventListener('click', function () {
+        document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
+
+        this.classList.add('active');
+        document.getElementById(this.dataset.tab).classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>
