@@ -1,15 +1,25 @@
 import express from 'express';
 import path from 'path';
-import searchRouter from './api/search';
+import connectDB from './config/db';
 
 const app = express();
-const port = 3000;
 
-// Statische Dateien bereitstellen
+// Verbindung zur Datenbank herstellen
+connectDB();
+
+// Statische Dateien aus dem 'public' Verzeichnis bereitstellen
 app.use(express.static(path.join(__dirname, '../public')));
 
-app.use('/api', searchRouter);
-
-app.listen(port, () => {
-  console.log(`Server läuft auf http://localhost:${port}`);
+// Route für die Root-URL
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/index.html'));
 });
+
+// Beispiel-API-Route
+app.get('/api/plz/search', (req, res) => {
+  res.json({ message: 'API ist erreichbar' });
+});
+
+// Server starten
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
