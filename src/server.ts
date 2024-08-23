@@ -1,7 +1,6 @@
 import express from 'express';
 import path from 'path';
 import connectDB from './config/db';
-import plzModel from './models/plz-api';
 
 const app = express();
 
