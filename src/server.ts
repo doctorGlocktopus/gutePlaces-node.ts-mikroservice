@@ -20,7 +20,7 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 
-app.get('/api/plz/search',   
+app.get('/api/search',   
  async (req, res) => {
   const { plz, stadt } = req.query;
   if (!plz && !stadt) {

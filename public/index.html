@@ -70,7 +70,7 @@
             <!-- JavaScript example -->
             <div class="tab-panel" id="javascript">
                 <pre>
-const url = 'http://localhost:5000/api/plz/search?plz=1067';
+const url = 'http://localhost:5000/api/search?plz=1067';
 
 fetch(url)
     .then(response => response.json())
@@ -83,7 +83,7 @@ fetch(url)
                 <pre>
 import fetch from 'node-fetch';
 
-const url = 'http://localhost:5000/api/plz/search?plz=1067';
+const url = 'http://localhost:5000/api/search?plz=1067';
 
 fetch(url)
     .then(response => response.json())
@@ -102,7 +102,7 @@ class Program
 {
     static async Task Main()
     {
-        string url = "http://localhost:5000/api/plz/search?plz=1067";
+        string url = "http://localhost:5000/api/search?plz=1067";
         using HttpClient client = new HttpClient();
         var response = await client.GetStringAsync(url);
         Console.WriteLine(response);
@@ -120,7 +120,7 @@ import java.net.URL;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        String url = "http://localhost:5000/api/plz/search?plz=1067";
+        String url = "http://localhost:5000/api/search?plz=1067";
         HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
         conn.setRequestMethod("GET");
         BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -140,7 +140,7 @@ public class Main {
                 <pre>
 import requests
 
-url = "http://localhost:5000/api/plz/search?plz=1067"
+url = "http://localhost:5000/api/search?plz=1067"
 response = requests.get(url)
 print(response.json())
                 </pre>
@@ -149,7 +149,7 @@ print(response.json())
             <div class="tab-panel" id="php" style="display: none;">
                 <pre>
 <?php
-$url = 'http://localhost:5000/api/plz/search?plz=1067';
+$url = 'http://localhost:5000/api/search?plz=1067';
 $response = file_get_contents($url);
 echo $response;
 ?>
@@ -168,27 +168,47 @@ echo $response;
             });
         });
 
-    document.getElementById('search').addEventListener('input', () => {
+        document.getElementById('search').addEventListener('input', () => {
         const searchInput = document.getElementById('search');
         const searchValue = searchInput.value;
 
-        // Überprüfe, ob mindestens drei Zeichen eingegeben wurden
+        // Check if at least three characters are entered
         if (searchValue.length >= 3) {
             const isNumeric = /^\d+$/.test(searchValue);
 
-            const url = `http://localhost:5000/api/plz/search?${isNumeric ? 'plz' : 'stadt'}=${searchValue}`;
+            const url = `http://localhost:5000/api/search?${isNumeric ? 'plz' : 'stadt'}=${searchValue}`;
 
             fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    const resultsElement = document.getElementById('results');
-                    resultsElement.textContent = JSON.stringify(data, null, 2);
-                })
-                .catch(error => {
-                    console.error('Error:', error);
+            .then(response => response.json())
+            .then(data => {
+                const resultsElement = document.getElementById('results');
+                resultsElement.textContent = ''; // Clear previous results
+
+                // Create a new unordered list element
+                const resultsList = document.createElement('ul');
+
+                if (data.length === 0) {
+                resultsList.textContent = 'Keine Ergebnisse gefunden.';
+                } else {
+                data.forEach(result => {
+                    // Create list item for each result
+                    const resultItem = document.createElement('li');
+                    resultItem.textContent = `${result.plz ? 'PLZ: ' + result.plz : ''}${result.stadt ? ' Stadt: ' + result.stadt : ''}`;
+                    resultsList.appendChild(resultItem);
                 });
+                }
+
+                resultsElement.appendChild(resultsList);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        } else {
+            // Clear results if search value is less than 3 characters
+            const resultsElement = document.getElementById('results');
+            resultsElement.textContent = '';
         }
-    });
+        });
     </script>
 </body>
 </html>
