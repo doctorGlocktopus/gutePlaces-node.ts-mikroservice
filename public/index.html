@@ -167,6 +167,28 @@ echo $response;
                 document.getElementById(tab.getAttribute('data-tab')).style.display = 'block';
             });
         });
+
+    document.getElementById('search').addEventListener('input', () => {
+        const searchInput = document.getElementById('search');
+        const searchValue = searchInput.value;
+
+        // Überprüfe, ob mindestens drei Zeichen eingegeben wurden
+        if (searchValue.length >= 3) {
+            const isNumeric = /^\d+$/.test(searchValue);
+
+            const url = `http://localhost:5000/api/plz/search?${isNumeric ? 'plz' : 'stadt'}=${searchValue}`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    const resultsElement = document.getElementById('results');
+                    resultsElement.textContent = JSON.stringify(data, null, 2);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+    });
     </script>
 </body>
 </html>
