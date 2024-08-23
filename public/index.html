@@ -64,95 +64,84 @@
             <div class="tab" data-tab="csharp">C#</div>
             <div class="tab" data-tab="java">Java</div>
             <div class="tab" data-tab="python">Python</div>
-            <div class="tab" data-tab="php">PHP</div>
         </div>
         <div class="tab-content" id="tab-content">
             <!-- JavaScript example -->
             <div class="tab-panel" id="javascript">
                 <pre>
-const url = 'http://localhost:5000/api/search?plz=1067';
+                const url = 'http://localhost:5000/api/search?plz=1067';
 
-fetch(url)
-    .then(response => response.json())
-    .then(data => console.log(data))
-    .catch(error => console.error('Error:', error));
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => console.log(data))
+                    .catch(error => console.error('Error:', error));
                 </pre>
             </div>
             <!-- TypeScript example -->
             <div class="tab-panel" id="typescript" style="display: none;">
                 <pre>
-import fetch from 'node-fetch';
+                    import fetch from 'node-fetch';
 
-const url = 'http://localhost:5000/api/search?plz=1067';
+                    const url = 'http://localhost:5000/api/search?plz=1067';
 
-fetch(url)
-    .then(response => response.json())
-    .then(data => console.log(data))
-    .catch(error => console.error('Error:', error));
+                    fetch(url)
+                        .then(response => response.json())
+                        .then(data => console.log(data))
+                        .catch(error => console.error('Error:', error));
                 </pre>
             </div>
             <!-- C# example -->
             <div class="tab-panel" id="csharp" style="display: none;">
                 <pre>
-using System;
-using System.Net.Http;
-using System.Threading.Tasks;
+                    using System;
+                    using System.Net.Http;
+                    using System.Threading.Tasks;
 
-class Program
-{
-    static async Task Main()
-    {
-        string url = "http://localhost:5000/api/search?plz=1067";
-        using HttpClient client = new HttpClient();
-        var response = await client.GetStringAsync(url);
-        Console.WriteLine(response);
-    }
-}
+                    class Program
+                    {
+                        static async Task Main()
+                        {
+                            string url = "http://localhost:5000/api/search?plz=1067";
+                            using HttpClient client = new HttpClient();
+                            var response = await client.GetStringAsync(url);
+                            Console.WriteLine(response);
+                        }
+                    }
                 </pre>
             </div>
             <!-- Java example -->
             <div class="tab-panel" id="java" style="display: none;">
                 <pre>
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
+                    import java.io.BufferedReader;
+                    import java.io.InputStreamReader;
+                    import java.net.HttpURLConnection;
+                    import java.net.URL;
 
-public class Main {
-    public static void main(String[] args) throws Exception {
-        String url = "http://localhost:5000/api/search?plz=1067";
-        HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
-        conn.setRequestMethod("GET");
-        BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-        String inputLine;
-        StringBuilder response = new StringBuilder();
-        while ((inputLine = in.readLine()) != null) {
-            response.append(inputLine);
-        }
-        in.close();
-        System.out.println(response.toString());
-    }
-}
+                    public class Main {
+                        public static void main(String[] args) throws Exception {
+                            String url = "http://localhost:5000/api/search?plz=1067";
+                            HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
+                            conn.setRequestMethod("GET");
+                            BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                            String inputLine;
+                            StringBuilder response = new StringBuilder();
+                            while ((inputLine = in.readLine()) != null) {
+                                response.append(inputLine);
+                            }
+                            in.close();
+                            System.out.println(response.toString());
+                        }
+                    }
                 </pre>
             </div>
             <!-- Python example -->
             <div class="tab-panel" id="python" style="display: none;">
                 <pre>
-import requests
+                    import requests
 
-url = "http://localhost:5000/api/search?plz=1067"
-response = requests.get(url)
-print(response.json())
-                </pre>
-            </div>
-            <!-- PHP example -->
-            <div class="tab-panel" id="php" style="display: none;">
-                <pre>
-<?php
-$url = 'http://localhost:5000/api/search?plz=1067';
-$response = file_get_contents($url);
-echo $response;
-?>
+                    url = "http://localhost:5000/api/search?plz=1067"
+                    response = requests.get(url)
+                    print(response.json())
                 </pre>
             </div>
         </div>
