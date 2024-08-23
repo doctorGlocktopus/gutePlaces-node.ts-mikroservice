@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PLZ API Documentation</title>
     <style>
+        table tr:nth-child(even) {
+            background-color: lightgray;
+        }
+
+        table tr:nth-child(odd) {
+            background-color: darkgray;
+        }
         body {
             display: flex;
             flex-direction: column;
@@ -161,8 +168,7 @@
         const searchInput = document.getElementById('search');
         const searchValue = searchInput.value;
 
-        // Check if at least three characters are entered
-        if (searchValue.length >= 3) {
+        if ((searchValue.length >= 3 && !isNaN(searchValue)) || (searchValue.length >= 4 && isNaN(searchValue))) {
             const isNumeric = /^\d+$/.test(searchValue);
 
             const url = `http://localhost:5000/api/search?${isNumeric ? 'plz' : 'stadt'}=${searchValue}`;
@@ -170,30 +176,29 @@
             fetch(url)
             .then(response => response.json())
             .then(data => {
-                const resultsElement = document.getElementById('results');
-                resultsElement.textContent = ''; // Clear previous results
+                const table = document.createElement('table');
+                const headerRow = table.insertRow();
+                const plzHeader = headerRow.insertCell();
+                const stadtHeader = headerRow.insertCell();
+                plzHeader.textContent = 'Postleitzahl';
+                stadtHeader.textContent = 'Stadtname';
 
-                // Create a new unordered list element
-                const resultsList = document.createElement('ul');
-
-                if (data.length === 0) {
-                resultsList.textContent = 'Keine Ergebnisse gefunden.';
-                } else {
                 data.forEach(result => {
-                    // Create list item for each result
-                    const resultItem = document.createElement('li');
-                    resultItem.textContent = `${result.plz ? 'PLZ: ' + result.plz : ''}${result.stadt ? ' Stadt: ' + result.stadt : ''}`;
-                    resultsList.appendChild(resultItem);
+                const row = table.insertRow();
+                const plzCell = row.insertCell();
+                const stadtCell = row.insertCell();
+                plzCell.textContent = result.plz || '';
+                stadtCell.textContent = result.stadt || '';
                 });
-                }
 
-                resultsElement.appendChild(resultsList);
+                const resultsElement = document.getElementById('results');
+                resultsElement.textContent = '';
+                resultsElement.appendChild(table);
             })
             .catch(error => {
                 console.error('Error:', error);
             });
         } else {
-            // Clear results if search value is less than 3 characters
             const resultsElement = document.getElementById('results');
             resultsElement.textContent = '';
         }

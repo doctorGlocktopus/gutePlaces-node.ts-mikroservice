@@ -8,7 +8,7 @@ const app = express();
 const db = connectDB();
 
 async function getCollection() {
-  const db = await connectDB(); // Wait for connection
+  const db = await connectDB();
   const collection = db.connection.db.collection('plz');
   return collection;
 }
@@ -30,8 +30,6 @@ app.get('/api/search',  
     try {
         let query: any = {};
 
-        console.log(plz, typeof plz)
-
         if (plz) {
           query.plz = new RegExp("^" + plz, 'i');
         }
@@ -41,7 +39,7 @@ app.get('/api/search',  
         }
 
         const collection = await getCollection();
-        console.log('Query:', query);
+
         const results = await collection.find(query).toArray();
         res.json(results);
     } catch (err) {
