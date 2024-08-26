@@ -1,0 +1,50 @@
+table tr:nth-child(even) {
+    background-color: lightgray;
+}
+
+table tr:nth-child(odd) {
+    background-color: darkgray;
+}
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background-color: #f4f4f4;
+}
+.container {
+    width: 80%;
+    max-width: 1200px;
+}
+.tabs {
+    display: flex;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+.tab {
+    padding: 10px 20px;
+    margin-right: 5px;
+    background: #ddd;
+    border: 1px solid #ccc;
+    border-radius: 5px 5px 0 0;
+}
+.tab.active {
+    background: #fff;
+    border-bottom: 1px solid #fff;
+}
+.tab-content {
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 0 0 5px 5px;
+    padding: 20px;
+}
+pre {
+    background: #eee;
+    padding: 10px;
+    border-radius: 5px;
+    overflow-x: auto;
+}
