@@ -3,59 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PLZ API Documentation</title>
-    <style>
-        table tr:nth-child(even) {
-            background-color: lightgray;
-        }
-
-        table tr:nth-child(odd) {
-            background-color: darkgray;
-        }
-        body {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-evenly;
-            align-items: center;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            background-color: #f4f4f4;
-        }
-        .container {
-            width: 80%;
-            max-width: 1200px;
-        }
-        .tabs {
-            display: flex;
-            cursor: pointer;
-            margin-bottom: 20px;
-        }
-        .tab {
-            padding: 10px 20px;
-            margin-right: 5px;
-            background: #ddd;
-            border: 1px solid #ccc;
-            border-radius: 5px 5px 0 0;
-        }
-        .tab.active {
-            background: #fff;
-            border-bottom: 1px solid #fff;
-        }
-        .tab-content {
-            background: #fff;
-            border: 1px solid #ccc;
-            border-radius: 0 0 5px 5px;
-            padding: 20px;
-        }
-        pre {
-            background: #eee;
-            padding: 10px;
-            border-radius: 5px;
-            overflow-x: auto;
-        }
-    </style>
+    <title>MATCHTING PLZ TO CITY API</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div>
@@ -76,79 +25,74 @@
             <!-- JavaScript example -->
             <div class="tab-panel" id="javascript">
                 <pre>
-            const url = 'http://localhost:5000/api/search?plz=1067';
+const url = 'http://localhost:5000/api/search?plz=1067';
 
-            fetch(url)
-                .then(response => response.json())
-                .then(data => console.log(data))
-                .catch(error => console.error('Error:', error));
+fetch(url)
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error('Error:', error));
                 </pre>
             </div>
             <!-- TypeScript example -->
             <div class="tab-panel" id="typescript" style="display: none;">
                 <pre>
-                    import fetch from 'node-fetch';
-
-                    const url = 'http://localhost:5000/api/search?plz=1067';
-
-                    fetch(url)
-                        .then(response => response.json())
-                        .then(data => console.log(data))
-                        .catch(error => console.error('Error:', error));
+import fetch from 'node-fetch';
+const url = 'http://localhost:5000/api/search?plz=1067';
+fetch(url)
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error('Error:', error));
                 </pre>
             </div>
             <!-- C# example -->
             <div class="tab-panel" id="csharp" style="display: none;">
                 <pre>
-                    using System;
-                    using System.Net.Http;
-                    using System.Threading.Tasks;
-
-                    class Program
-                    {
-                        static async Task Main()
-                        {
-                            string url = "http://localhost:5000/api/search?plz=1067";
-                            using HttpClient client = new HttpClient();
-                            var response = await client.GetStringAsync(url);
-                            Console.WriteLine(response);
-                        }
-                    }
+using System;
+using System.Net.Http;
+using System.Threading.Tasks;
+class Program
+{
+    static async Task Main()
+    {
+        string url = "http://localhost:5000/api/search?plz=1067";
+        using HttpClient client = new HttpClient();
+        var response = await client.GetStringAsync(url);
+        Console.WriteLine(response);
+    }
+}
                 </pre>
             </div>
             <!-- Java example -->
             <div class="tab-panel" id="java" style="display: none;">
                 <pre>
-                    import java.io.BufferedReader;
-                    import java.io.InputStreamReader;
-                    import java.net.HttpURLConnection;
-                    import java.net.URL;
-
-                    public class Main {
-                        public static void main(String[] args) throws Exception {
-                            String url = "http://localhost:5000/api/search?plz=1067";
-                            HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
-                            conn.setRequestMethod("GET");
-                            BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                            String inputLine;
-                            StringBuilder response = new StringBuilder();
-                            while ((inputLine = in.readLine()) != null) {
-                                response.append(inputLine);
-                            }
-                            in.close();
-                            System.out.println(response.toString());
-                        }
-                    }
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+public class Main {
+    public static void main(String[] args) throws Exception {
+        String url = "http://localhost:5000/api/search?plz=1067";
+        HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
+        conn.setRequestMethod("GET");
+        BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+        String inputLine;
+        StringBuilder response = new StringBuilder();
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+        }
+        in.close();
+        System.out.println(response.toString());
+    }
+}
                 </pre>
             </div>
             <!-- Python example -->
             <div class="tab-panel" id="python" style="display: none;">
                 <pre>
-                    import requests
-
-                    url = "http://localhost:5000/api/search?plz=1067"
-                    response = requests.get(url)
-                    print(response.json())
+import requests
+url = "http://localhost:5000/api/search?plz=1067"
+response = requests.get(url)
+print(response.json())
                 </pre>
             </div>
         </div>
