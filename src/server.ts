@@ -6,6 +6,8 @@ const app = express();
 
 const db = connectDB();
 
+const requestCache: { [key: string]: number } = {};
+
 async function getCollection() {
   const db = await connectDB();
   const collection = db.connection.db.collection('plz');
@@ -21,6 +23,14 @@ app.get('/', (req, res) => {
 app.get('/api/search',   
  async (req, res) => {
     const { plz, stadt } = req.query;
+
+    const clientIp = req.ip || Math.random();
+
+    const currentTime = Date.now();
+
+    if (requestCache[clientIp] && currentTime - requestCache[clientIp] < 5000) {
+        return res.status(429).json({ error: 'Bitte warten Sie 5 Sekunden vor dem nächsten Aufruf' });
+    }
 
     if (!plz && !stadt) {
         return res.status(400).json({ error: 'Bitte eine PLZ oder Stadt angeben' });
