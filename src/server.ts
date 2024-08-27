@@ -2,6 +2,8 @@ import express from 'express';
 import path from 'path';
 import connectDB from './config/db';
 
+const ipFallback = Math.random();
+
 const app = express();
 
 const db = connectDB();
@@ -24,7 +26,7 @@ app.get('/api/search',  
  async (req, res) => {
     const { plz, stadt } = req.query;
 
-    const clientIp = req.ip || Math.random();
+    const clientIp = req.ip || ipFallback;
 
     const currentTime = Date.now();
 
